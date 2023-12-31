@@ -1,57 +1,36 @@
-// Write the code as shown in the video below:
+const form = document.querySelector('form');
+const fruitToAddInput = document.getElementById('fruit-to-add');
+const fruitsList = document.querySelector('.fruits');
 
-const mainHeading = document.querySelector('#main-heading'); 
-mainHeading.style.textAlign = 'right';
+// Add functionality
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
 
-const fruits = document.querySelector('.fruits');
+  const fruitName = fruitToAddInput.value.trim();
 
-fruits.style.backgroundColor = 'gray';
+  if (fruitName) {
+    const newListItem = document.createElement('li');
+    newListItem.classList.add('fruit');
+    newListItem.textContent = fruitName;
 
-fruits.style.padding = '30px';
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'x';
+    deleteBtn.classList.add('delete-btn');
+    newListItem.appendChild(deleteBtn);
 
-fruits.style.margin = '30px'; 
+    const editBtn = document.createElement('button');
+    editBtn.textContent = 'Edit';
+    editBtn.classList.add('edit-btn');
+    newListItem.appendChild(editBtn);
 
-fruits.style.width = '50%';
+    fruitsList.appendChild(newListItem);
+    fruitToAddInput.value = '';
+  }
+});
 
-fruits.style.borderRadius = '5px';
-
-fruits.style.listStyleType = 'none';
-
-const basketHeading = document.querySelector('h2');
-
-basketHeading.style.marginLeft = '30px';
-
-basketHeading.style.color = "brown";
-
-// QuerySelectorAll is used to grab all the elements with same class/tag
-
-const fruitItems = document.querySelectorAll('.fruit');
-
-for(let i=0; i<fruitItems.length; i++){
-  fruitItems[i].style.backgroundColor = 'white';
-
-  fruitItems[i].style.padding = '10px';
-
-  fruitItems[i].style.margin = '10px';
-
-  fruitItems[i].style.borderRadius = '5px';
-}
-
-
-const OddFruitItems = document.querySelectorAll('.fruit:nth-child(odd)');
-
-for(let i=0; i<OddFruitItems.length; i++){
-
-    OddFruitItems[i].style.backgroundColor = 'lightgray';
-
-}
-
-const EvenFruitItems = document.querySelectorAll('.fruit:nth-child(even)');
-
-for(let i=0; i<OddFruitItems.length; i++){
-    EvenFruitItems[i].style.color = "white";
-    EvenFruitItems[i].style.backgroundColor = 'brown';
-
-}
-
-// Write answer to the questions asked below:
+// Delete functionality
+fruitsList.addEventListener('click', (event) => {
+  if (event.target.classList.contains('delete-btn')) {
+    event.target.parentNode.remove();
+  }
+});
